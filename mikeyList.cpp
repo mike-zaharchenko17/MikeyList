@@ -79,7 +79,14 @@ public:
     // over to a MikeyList.
     void extend(T *arr, int arrSize);
 
+    // Inserts an element at the specified index
     void insert(int index, T val);
+
+    // Allows you to take a slice from a list (lst[x:y:step]) and either
+    // return it in place or out of place
+    // If you return it in place, the slice will overwrite the calling object
+    // If you return it out of place, you must save it to another MikeyList object
+    MikeyList<T> slice(int startIndex, int endIndex, int step = 1, bool inPlace = false);
 
     // Creates a deep copy of the calling object by calling the
     // deep copy constructor with itself
@@ -283,6 +290,29 @@ void MikeyList<T>::insert(int index, T val) {
     } else {
         cout<<"Error: Index out of range"<<endl;
         return;
+    }
+}
+
+template <typename T>
+MikeyList<T> MikeyList<T>::slice(int startIndex, int endIndex, int step, bool inPlace) {
+    if (inPlace == true) {
+        MikeyList<T> temp;
+        int j = 0;
+        for (int i = startIndex; i < endIndex; i += step) {
+            temp.mList[j] = this->mList[i];
+            j++;
+        }
+        this->clear();
+        for (int i = 0; i < temp.logicalSize; i++) {
+            this->append(temp[i]);
+        }
+        return *this;
+    } else {
+        MikeyList<T> temp;
+        for (int i = startIndex; i < endIndex; i += step) {
+            temp.append(this->mList[i]);
+        }
+        return temp;
     }
 }
 
