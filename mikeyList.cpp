@@ -88,10 +88,6 @@ public:
     // If you return it out of place, you must save it to another MikeyList object
     MikeyList<T> slice(int startIndex, int endIndex, int step = 1, bool inPlace = false);
 
-    // Creates a deep copy of the calling object by calling the
-    // deep copy constructor with itself
-    MikeyList<T> copy();
-
     // Deletes the dynamic array stored at mList and reinitializes the
     // variable with null values.In Python, this method is .delete, but
     // since delete is a keyword in C++, I called it del.
@@ -149,6 +145,20 @@ public:
         } else {
             return mList[index];
         }
+    }
+
+    MikeyList<T> operator = (MikeyList<T> &rhsArr) {
+        delete [] this->mList;
+        this->mList = new int[rhsArr.physicalSize];
+
+        this->logicalSize = rhsArr.logicalSize;
+        this->physicalSize = rhsArr.physicalSize;
+
+        for (int i = 0; i <= logicalSize; i++) {
+            this->mList[i] = rhsArr.mList[i];
+        }
+
+        return *this;
     }
 
     // Destructor //
@@ -313,12 +323,6 @@ MikeyList<T> MikeyList<T>::slice(int startIndex, int endIndex, int step, bool in
         return temp;
     }
 }
-
-template <typename T>
-MikeyList<T> MikeyList<T>::copy() {
-    return MikeyList(*this);
-}
-
 template <typename T>
 void MikeyList<T>::clear() {
     delete [] mList;
@@ -331,8 +335,5 @@ void MikeyList<T>::clear() {
 }
 
 int main() {
-    MikeyList <int> ML1 = {12, 16, 12, 23, 10, 2, 17, 18, 600, 9};
-    ML1.slice(0, ML1.length(), 2, true);
-    ML1.print();
     return 0;
 }
