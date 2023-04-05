@@ -297,10 +297,8 @@ template <typename T>
 MikeyList<T> MikeyList<T>::slice(int startIndex, int endIndex, int step, bool inPlace) {
     if (inPlace == true) {
         MikeyList<T> temp;
-        int j = 0;
         for (int i = startIndex; i < endIndex; i += step) {
-            temp.mList[j] = this->mList[i];
-            j++;
+            temp.append(this->mList[i]);
         }
         this->clear();
         for (int i = 0; i < temp.logicalSize; i++) {
@@ -333,5 +331,8 @@ void MikeyList<T>::clear() {
 }
 
 int main() {
+    MikeyList <int> ML1 = {12, 16, 12, 23, 10, 2, 17, 18, 600, 9};
+    ML1.slice(0, ML1.length(), 2, true);
+    ML1.print();
     return 0;
 }
