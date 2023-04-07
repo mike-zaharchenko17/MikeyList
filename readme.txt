@@ -41,9 +41,6 @@ With that said, if you're familiar with Python, many of the following methods pr
 	  If you execute out of place, then a MikeyList object will be returned and must be saved to
         a variable of type MikeyList
 
-- copy()
-	- Creates a deep copy of the calling object by calling the deep copy constructor with itself
-
 - clear()
 	- Deletes the dynamic array stored at this->mList and reinitializes the variable with null values 
 
@@ -68,7 +65,8 @@ The following operators are overloaded:
 	- The [] operator is my personal favorite. The way the overload is done allows you to work
 	  with a MikeyList object the same way you would work with an array/vector/Python list. You
 	  can access elements by index using mL1[index] or assign elements using mL1[index] = value
+	  
+- =
+	- The = operator allows us to overwrite the data in a MikeyList with the data in another MikeyList
 
 If you're in my Bridge section or are a professor/TA and you decide to give this a test run let me know what you think! Your feedback is always appreciated :)
-
-
