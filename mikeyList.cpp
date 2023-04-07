@@ -147,7 +147,7 @@ public:
         }
     }
 
-    MikeyList<T> operator = (MikeyList<T> &rhsArr) {
+    MikeyList<T>& operator = (MikeyList<T> &rhsArr) {
         delete [] this->mList;
         this->mList = new int[rhsArr.physicalSize];
 
@@ -335,5 +335,10 @@ void MikeyList<T>::clear() {
 }
 
 int main() {
-    return 0;
+    MikeyList<int> ml1 = {1,2,3,4};
+    MikeyList<int> ml2 = {5,6,7,8};
+    MikeyList<int> ml3 = {10, 11, 12};
+    ml1 = ml2 = ml3;
+    ml1.print();
+
 }
